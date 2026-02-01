@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body>
+<div class="box">
+  <img src="/imgs/logo.png" alt="Logo" class="logo">
+  <h2>Create Account</h2>
+
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/register">
+    <input name="fullName" placeholder="Full Name" required />
+    <input name="email" placeholder="Email address" type="email" required />
+    <input name="password" placeholder="Password" type="password" required />
+    <button type="submit">Create Account</button>
+  </form>
+
+  <p class="muted">Already have an account? <a href="/login">Sign in</a></p>
+</div>
+</body>
+</html>

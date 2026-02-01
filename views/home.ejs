@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body>
+<div class="box">
+  <img src="/imgs/logo.png" alt="Logo" class="logo">
+  <div class="login-indicator">
+    <span class="status-dot"></span>
+    <span class="status-text">Connected</span>
+  </div>
+  <h2>Welcome Home</h2>
+
+  <div class="user-info">
+    <p class="welcome-text">Hello, <strong><%= user.fullName %></strong></p>
+    <p class="muted"><%= user.email %></p>
+  </div>
+
+  <form method="POST" action="/logout">
+    <button type="submit">Logout</button>
+  </form>
+</div>
+</body>
+</html>
