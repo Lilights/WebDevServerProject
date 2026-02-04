@@ -9,10 +9,19 @@ const dataDir = process.env.DATA_DIR
 fs.mkdirSync(dataDir, { recursive: true });
 
 const dbPath = path.join(dataDir, "db.sqlite");
-const db = new sqlite3.Database(dbPath);
+
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("Failed to open SQLite DB:", err);
+  } else {
+    console.log("SQLite DB path:", dbPath);
+  }
+});
 
 db.serialize(() => {
   db.run(`PRAGMA foreign_keys = ON`);
+  db.run(`PRAGMA journal_mode = WAL`);
+  db.run(`PRAGMA synchronous = NORMAL`);
 
   db.run(`
     CREATE TABLE IF NOT EXISTS Users (
@@ -37,6 +46,9 @@ db.serialize(() => {
       FOREIGN KEY(userId) REFERENCES Users(id) ON DELETE CASCADE
     )
   `);
+
+  // Helpful indexes (optional but good)
+  db.run(`CREATE INDEX IF NOT EXISTS idx_favorites_userId ON Favorites(userId)`);
 });
 
 module.exports = db;
